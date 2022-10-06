@@ -1,13 +1,28 @@
 import "./App.css";
 import { useState } from "react";
 
-let number = 1;
-function App() {
-  const [todos, setTodos] = useState({
-    id: 1,
-    title: "리액트를 배워봅시다",
-  });
+const Todo = ({ todo }) => {
+  return (
+    <div className="todo">
+      <p>{todo.title}</p>
+    </div>
+  );
+};
 
+const List = ({ todos, setTodos }) => {
+  return (
+    <div className="todo-wrapper">
+      {todos.map((todo) => {
+        return (
+          <Todo todo={todo} key={todo.id} setTodos={setTodos} />
+        );
+      })}
+    </div>
+  );
+};
+
+let number = 2;
+const Form = ({ todos, setTodos }) => {
   const initialValue = {
     id: 0,
     title: "",
@@ -46,11 +61,23 @@ function App() {
       <div className="title">
         <p>TODO LIST</p>
       </div>
-      <div className="todo-wrapper">
-        <div className="todo">
-          <p>{todo.title}</p>
-        </div>
-      </div>
+    </>
+  );
+};
+
+function App() {
+  const [todos, setTodos] = useState( // 이걸 배열로 안 만들어서 실패...!
+    [
+      {
+        id: 1,
+        title: "리액트를 배워봅시다",
+      }
+    ]);
+
+  return (
+    <>
+      <Form todos={todos} setTodos={setTodos} />
+      <List todos={todos} setTodos={setTodos} />
     </>
   );
 }
