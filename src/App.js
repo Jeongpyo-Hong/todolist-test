@@ -40,12 +40,14 @@ const App = () => {
   return (
     <div>
       <div className="form">
+        <label>제목</label>
         <input
           name="title"
           value={todo.title}
           onChange={onChange}
           type="text"
         />
+        <label>내용</label>
         <input
           name="content"
           value={todo.content}
@@ -55,7 +57,7 @@ const App = () => {
         <button onClick={onClick}>추가하기</button>
       </div>
       <div className="title">
-        <h1>TODO LIST</h1>
+        <h1># TODO LIST# </h1>
       </div>
       <div className="todo-wrapper">
         {todos.map((todo) => (
