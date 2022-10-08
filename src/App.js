@@ -1,36 +1,25 @@
+import React, { useState } from "react";
 import "./App.css";
-import { useState } from "react";
 
-const Todo = ({ todo }) => {
+function List({ todo }) {
   return (
     <div className="todo">
-      <p>{todo.title}</p>
+      <h3>제목: {todo.title}</h3>
+      <p>내용: {todo.content}</p>
     </div>
   );
-};
+}
 
-const List = ({ todos, setTodos }) => {
-  return (
-    <div className="todo-wrapper">
-      {todos.map((todo) => {
-        return (
-          <Todo todo={todo} key={todo.id} setTodos={setTodos} />
-        );
-      })}
-    </div>
-  );
-};
+const App = () => {
+  const [todos, setTodos] = useState([]);
 
-let number = 2;
-const Form = ({ todos, setTodos }) => {
-  const initialValue = {
+  const [todo, setTodo] = useState({
     id: 0,
     title: "",
-  };
+    content: "",
+  });
 
-  const [todo, setTodo] = useState({ initialValue });
-
-  const onChangeHandler = (e) => {
+  const onChange = (e) => {
     const { name, value } = e.target;
     setTodo({
       ...todo,
@@ -38,48 +27,43 @@ const Form = ({ todos, setTodos }) => {
     });
   };
 
-  const onsubmitHandler = (e) => {
-    e.preventDefault();
-    if (todo.title.trim() === "") return;
-    setTodos([...todos, { ...todo, id: number }]);
-    setTodo(initialValue);
-    number++;
+  const onClick = () => {
+    setTodos([
+      ...todos,
+      { id: Date.now(), title: todo.title, content: todo.content },
+    ]);
+    setTodo({ title: "", content: "" });
   };
 
+  console.log(todos);
+
   return (
-    <>
-      <form onSubmit={onsubmitHandler} className="form">
+    <div>
+      <div className="form">
         <input
           name="title"
           value={todo.title}
-          required
-          onChange={onChangeHandler}
+          onChange={onChange}
           type="text"
         />
-        <button>추가하기</button>
-      </form>
-      <div className="title">
-        <p>TODO LIST</p>
+        <input
+          name="content"
+          value={todo.content}
+          onChange={onChange}
+          type="text"
+        />
+        <button onClick={onClick}>추가하기</button>
       </div>
-    </>
+      <div className="title">
+        <h1>TODO LIST</h1>
+      </div>
+      <div className="todo-wrapper">
+        {todos.map((todo) => (
+          <List todo={todo} key={todo.id} />
+        ))}
+      </div>
+    </div>
   );
 };
-
-function App() {
-  const [todos, setTodos] = useState( // 이걸 배열로 안 만들어서 실패...!
-    [
-      {
-        id: 1,
-        title: "리액트를 배워봅시다",
-      }
-    ]);
-
-  return (
-    <>
-      <Form todos={todos} setTodos={setTodos} />
-      <List todos={todos} setTodos={setTodos} />
-    </>
-  );
-}
 
 export default App;
