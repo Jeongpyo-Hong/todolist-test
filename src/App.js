@@ -4,8 +4,8 @@ import "./App.css";
 function List({ todo }) {
   return (
     <div className="todo">
-      <h3>제목: {todo.title}</h3>
-      <p>내용: {todo.content}</p>
+      <h3>{todo.title}</h3>
+      <p>{todo.content}</p>
     </div>
   );
 }
