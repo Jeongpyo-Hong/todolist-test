@@ -57,7 +57,7 @@ const App = () => {
         <button onClick={onClick}>추가하기</button>
       </div>
       <div className="title">
-        <h1># TODO LIST# </h1>
+        <h1># TODO LIST # </h1>
       </div>
       <div className="todo-wrapper">
         {todos.map((todo) => (
